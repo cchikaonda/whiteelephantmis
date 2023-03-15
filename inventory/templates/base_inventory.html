@@ -1,0 +1,241 @@
+{% load static %}
+{% load inventory_template_tags %}
+{% get_media_prefix as MEDIA_URL %}
+{{form.media}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{header}}</title>
+    
+    {% include 'all_css_imports.html' %}
+
+    <style>
+      #home_button{
+        visibility: hidden;
+      }
+    </style>
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<!--Wrapper-->
+  <div class="wrapper">
+     {% include 'navigation_bar.html' %}
+    
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="{% url 'home' %}" class="brand-link">
+          <!-- <img src="{{MEDIA_URL}}{{config.LOGO_IMAGE}}" alt="" class="brand-image img-circle elevation-3" -->
+               <!-- style="opacity: .8"> -->
+          <span class="brand-text font-weight-light">WHITE ELEPHANT</span>
+        </a>
+    
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar Menu -->
+          <nav class="mt-2" id="nav">
+            <!-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> -->
+            
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> 
+              <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+            
+               <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Dashboard
+                  </p>
+                </a>
+
+               </li>
+              
+              <li class="nav-header">INVENTORY OPTIONS</li>
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link" id="link-options" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    MANAGE ITEMS
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Item Categories <span class="badge badge-primary right">4</span> </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Items <span class="badge badge-primary right">5</span> </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Item Units <span class="badge badge-primary right">5</span> </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link" id="link-options" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                   CUSTOMERS
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Customer list <span class="badge badge-light right">5</span> </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link" id="link-options" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                   MANAGE STOCK
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Batch Numbers<span class="badge badge-warning right">5</span> </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Stock list <span class="badge badge-warning right">5</span> </p>
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Supplier list <span class="badge badge-warning right">5</span> </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link" id="link-options" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                   EXPENSES
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Expense Categories <span class="badge badge-success right">5</span> </p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Expenses List<span class="badge badge-success right">5</span> </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-header">SYSTEM SETTINGS</li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-calendar-alt"></i>
+                  <p>
+                    Manage Users
+                    <span class="badge badge-danger right">4</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon far fa-user"></i>
+                  <p>
+                    Update Profile
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+      <!--End Main Side Container-->
+    
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2 mt-2">
+              <div class="col-sm-6 mt-2">
+                <h1 class="m-0 text-dark">{{header}}</h1>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item active">{{header}}</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+    
+        <!-- Main content -->
+        <section class="content">
+          {% block content %}
+          <div class="spinner-border text-primary" role="status">
+          </div>
+
+          {% endblock %}
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!--Footer-->
+        {% include 'footer.html' %}
+      <!--./Footer-->  
+  </div>
+<!-- ./wrapper -->
+
+
+<!--All Javascript Imports-->
+{% include 'all_js_imports.html' %}
+<!--End all Javascript imports-->
+
+<script>
+  {% for msg in messages %}
+      Swal.fire(
+      '{{msg}}',
+      '',
+      'success'
+    );
+  {% endfor %}
+</script>
+
+<!--Inventory Modals Module-->
+{% include 'includes/inventory_modals.html' %}
+<!--End inventory Modals-->
+</body>
+
+
+</html>
