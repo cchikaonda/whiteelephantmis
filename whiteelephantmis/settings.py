@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     'accounts',
     'inventory',
+
+    'phonenumber_field',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
