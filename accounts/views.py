@@ -7,10 +7,8 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.db.models import Count
 from django.utils import timezone
 from datetime import datetime
+from django.contrib import messages
 
-@login_required
-def home(request):
-    pass
 
 @login_required
 def logout_request(request):

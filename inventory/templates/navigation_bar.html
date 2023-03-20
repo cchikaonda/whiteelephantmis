@@ -17,6 +17,13 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
+        {% if basket|length > 0 %}
+        <div class="header__cart__price">Cost of <strong>{{basket|length}}</strong> Item{{basket|length|pluralize}}: <span>{{basket.get_total_price}}</span></div>
+        {% else %}
+        <div class="header__cart__price">Item: <span>MWK 0.00</span></div>
+        {% endif %}
+      </li>
+      <li class="nav-item">
         <a class="nav-link " role="button">
           <button class="btn btn-light"><i class="fas fa-user mr-2"></i> {{request.user.first_name|title}} {{request.user.last_name|title}}</button>
         </a>

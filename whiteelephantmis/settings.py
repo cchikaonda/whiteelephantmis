@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
+    'colorfield',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,9 +42,13 @@ INSTALLED_APPS = [
 
     'accounts',
     'inventory',
+    'requisitions',
+    'basket',
 
+    'django_countries',
     'phonenumber_field',
     'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
@@ -68,6 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'basket.context_processors.basket',
             ],
         },
     },
@@ -138,3 +145,6 @@ LOGIN_REDIRECT_URL ='home'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Basket session ID
+BASKET_SESSION_ID = "basket"

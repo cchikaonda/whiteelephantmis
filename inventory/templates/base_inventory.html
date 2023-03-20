@@ -66,36 +66,19 @@
                   <li class="nav-item">
                     <a href="{% url 'category_list' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Item Categories <span class="badge badge-primary right">4</span> </p>
+                      <p>Item Categories <span class="badge badge-primary right">{{request.user|item_category_count}}</span> </p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'items_list' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Items <span class="badge badge-primary right">5</span> </p>
+                      <p>Items <span class="badge badge-primary right">{{request.user|item_count}}</span> </p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'unit_list' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Item Units <span class="badge badge-primary right">5</span> </p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item has-treeview menu-open">
-                <a href="#" class="nav-link" id="link-options" >
-                  <i class="nav-icon fas fa-th"></i>
-                  <p>
-                   CUSTOMERS
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Customer list <span class="badge badge-light right">5</span> </p>
+                      <p>Item Units <span class="badge badge-primary right">{{request.user|unit_count}}</span> </p>
                     </a>
                   </li>
                 </ul>
@@ -110,22 +93,39 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'batch_list' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Batch Numbers<span class="badge badge-warning right">5</span> </p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'stock_list' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Stock list <span class="badge badge-warning right">5</span> </p>
                     </a>
                   </li>
 
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{% url 'supplier_list' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Supplier list <span class="badge badge-warning right">5</span> </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link" id="link-options" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                   MANAGE REQUISITIONS
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{% url 'requisitions_list' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Requisitions<span class="badge badge-warning right">5</span> </p>
                     </a>
                   </li>
                 </ul>
@@ -159,7 +159,7 @@
                   <i class="nav-icon fas fa-calendar-alt"></i>
                   <p>
                     Manage Users
-                    <span class="badge badge-danger right">4</span>
+                    <span class="badge badge-danger right">{{request.user|user_count}}</span>
                   </p>
                 </a>
               </li>
@@ -190,7 +190,7 @@
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
                   <li class="breadcrumb-item active">{{header}}</li>
                 </ol>
               </div><!-- /.col -->
@@ -202,8 +202,7 @@
         <!-- Main content -->
         <section class="content">
           {% block content %}
-          <div class="spinner-border text-primary" role="status">
-          </div>
+          
 
           {% endblock %}
         </section>

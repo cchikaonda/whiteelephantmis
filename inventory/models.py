@@ -21,6 +21,9 @@ class Supplier(models.Model):
 class Unit(models.Model):
     unit_short_name = models.CharField(max_length=10)
     unit_description = models.CharField(max_length=100)
+    class Meta:
+        permissions = [("can_add_new_unit", "can add new unit"), ("can_update_unit", "can update unit")]
+    
     def __str__(self):
         return self.unit_short_name
 
@@ -43,6 +46,7 @@ class ItemCategory(models.Model):
 class Item(models.Model):
     item_name = models.CharField(max_length=100)
     item_description = models.CharField(max_length=100)
+    image = models.ImageField(default="ecom_product6_b.png", upload_to='items/', null=True, blank=True)
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE)
     barcode = models.IntegerField(null=False, unique=True)
     cost_price = MoneyField(max_digits=14, decimal_places=2, default_currency='MWK', default=0)
@@ -54,6 +58,10 @@ class Item(models.Model):
     reorder_level = models.IntegerField()
     active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True)
+
+    class Meta:
+        permissions = [("can_add_new_item", "can add new item"), ("can_update_item", "can update item")]
+    
 
     def __str__(self):
         return self.item_name
@@ -107,6 +115,10 @@ class BatchNumber(models.Model):
     batch_number = models.CharField(max_length=50)
     description = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        permissions = [("can_add_new_batch_number", "can add new batch number"), ("can_update_batch_number", "can update batch number")]
+    
 
     def __str__(self):
         return '{0}'.format(self.batch_number)

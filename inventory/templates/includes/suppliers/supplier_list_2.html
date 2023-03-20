@@ -1,0 +1,16 @@
+{% for supplier in suppliers %}
+<tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ supplier.name }}</td>
+    <td>{{ supplier.address }}</td>
+    <td>{{ supplier.phone_number }}</td>
+    <td>{{ supplier.description }}</td>
+    <td class="text-center">
+        <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-light show-form-update" data-url="{% url 'supplier_update' supplier.id %}" data-toggle="tooltip" title="Edit {{ items.item_name }} ">
+                <a class="fa fa-fw fa-pencil-alt"></a>
+            </button>
+        </div>
+    </td>
+</tr>
+{% endfor %}
