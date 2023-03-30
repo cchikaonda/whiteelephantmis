@@ -18,18 +18,22 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
         {% if basket|length > 0 %}
-        <div class="header__cart__price">Cost of <strong>{{basket|length}}</strong> Item{{basket|length|pluralize}}: <span>{{basket.get_total_price}}</span></div>
+        <a class="nav-link mb-4" role="button">
+          <button class="btn btn-light text-info disabled">Cost of <strong>{{basket|length}}</strong> Item{{basket|length|pluralize}}: <span>{{basket.get_total_price}}</span></button>
+        </a>
         {% else %}
-        <div class="header__cart__price">Item: <span>MWK 0.00</span></div>
+        <a class="nav-link mb-4" role="button">
+          <button class="btn btn-light text-info disabled">Item: <span>MWK 0.00</span></button>
+        </a>
         {% endif %}
       </li>
       <li class="nav-item">
-        <a class="nav-link " role="button">
-          <button class="btn btn-light"><i class="fas fa-user mr-2"></i> {{request.user.first_name|title}} {{request.user.last_name|title}}</button>
+        <a class="nav-link mb-4" role="button">
+          <button class="btn btn-light disabled"><i class="fas fa-user mr-2"></i> {{request.user.first_name|title}} {{request.user.last_name|title}}</button>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#logout_confirm" role="button">
+        <a class="nav-link mb-4" data-toggle="modal" data-target="#logout_confirm" role="button">
           <button class="btn btn-light"><i class="fas fa-sign-in-alt"></i> Logout </button>
         </a>
       </li>

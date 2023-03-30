@@ -1,5 +1,6 @@
 from django import template
 from inventory.models import *
+from requisitions.models import *
 
 
 register = template.Library()
@@ -38,6 +39,12 @@ def supplier_count(user):
 def stock_count(user):
     if user.is_authenticated:
         qs = Stock.objects.all().count()
+    return qs
+
+@register.filter
+def requisition_count(user):
+    if user.is_authenticated:
+        qs = Requisition.objects.all().count()
     return qs
 
 @register.filter

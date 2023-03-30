@@ -1,0 +1,138 @@
+{% extends 'base_inventory.html' %}
+
+
+{% block content %}
+<style>
+  #customer_name_label{
+    display: inline;
+  }
+</style>
+
+<div class="mb-4">
+  <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-md-center justify-content-start border-bottom mb-2" style="font-size: x-large;">
+    <a class="nav-item" href="#"><b>{{request.get_code}}</b></a>  
+    <div class="navbar-collapse collapse justify-content-between align-items-center">
+        
+
+        <ul class="navbar-nav mx-auto text-md-center text-left"> 
+           
+        </ul>
+    </div>
+  </nav>
+
+  <!--ROW-->
+  <div class="row mb-4">
+    {% if requisition %}
+    {%else%}
+  <style>
+    #cart_section{
+      display: none;
+    }
+    #other_payments{
+      display: none;
+    }
+    .cart_button{
+      width: 150px;
+    }
+  </style>
+    {% endif %}
+  {% if requisition == None %}
+    <!--CART ITEMS-->
+    <div class="col-md-6" >
+      <div class="card ml-2" >
+          <div class="card-body text-center">
+
+            <a class="btn btn-default disabled" style="width: 100px; height: 100px; border-style: dotted; border-radius: 2ex; border-width: 3px;" ></a> <br>
+
+            <strong> Request is Empty!</strong> <br>
+              Add Items to the request
+          </div>
+                
+      </div>
+
+    </div>
+    <!--END CART ITEMS-->
+  {% else %}
+    <!--CART ITEMS-->
+    <div class="col-12" >
+        <div class="card" id="cart_section">
+            <div class="card-header">
+                <h3 class="card-title">Requested Items in Request <strong>{{requisition.get_code}}</strong></h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table m-0">
+                      <thead>
+                      <tr>
+                        <th>Item</th>
+                        <th class="text-center">Requested Qty</th>
+                        <th class="text-center" style="width: 15%;">Approved Qty</th>
+                        <th class="text-center">Qty in stock</th>
+                        <th class="text-right">Cost</th>
+                        <th class="text-right">Total</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                    {% for ordered_item in requisition.items.all %}
+                      <tr>
+                        <td>{{ordered_item.item}}</td>
+                        <td class="text-center" >{{ordered_item.quantity}}</td>
+                        <td class="text-center">
+                          <div class="input-group mb-3">
+                            
+                            <div class="input-group-append">
+                              {% if ordered_item.approved_qty > 0 %}
+                              <span class="input-group-text"><a href="{%url 'remove_single_item_from_cart' ordered_item.item.slug %}"><i class="fas fa-minus"></i></a></span>
+                              {% else %}
+                              {% endif %}
+                            </div>
+                            <input type="text" class="form-control text-center" value="{{ordered_item.approved_qty}}" id="{{ordered_item.id}}">
+                            <div class="input-group-append">
+                              {% if ordered_item.item.quantity_at_hand > 0 %}
+                              <span class="input-group-text"><a href="{%url 'add_single_item_from_cart' ordered_item.item.slug %}"><i class="fas fa-plus"></i></a></span>
+                              {% else %}
+                              {% endif %}
+                            </div>
+                          </div>
+              
+                        </td>
+                        <td class="text-center">{{ordered_item.item.quantity_at_hand}}</td>
+                        <td class="text-right">{{ordered_item.requested_item_price}}</td>
+                        <td class="text-right">{{ordered_item.total_approved_item_amount}}</td>
+                      </tr>
+                      
+                      {% endfor %}
+                  
+                      <tr>
+                        <td colspan="5" class="font-w700 text-uppercase text-right bg-body-light"> <strong>Total Due</strong></td>
+                        <td class="font-w700 text-right bg-body-dark" ><strong>{{requisition.get_total_approved_request_amount}}</strong></td>
+                    </tr>
+                      </tbody>
+                    </table>
+                </div>
+                <div class="col-md-12 modal-footer" >
+                    <div class="mt-2">
+                      <a href="{% url 'requisitions_list' %}"><button class="btn btn-secondary mr-2 mt-2 posoption_button" >Close</button> </a>
+                      <a href="{% url 'approve_requisition' requisition.id %}"><button class="btn btn-success mr-2 ml-2 mt-2 posoption_button" >Approve</button> </a>
+                      <a href="{% url 'approve_requisition' requisition.id %}"><button class="btn btn-warning  ml-2 mt-2 posoption_button" >Deny</button> </a>
+                    </div>
+                </div>
+               
+
+            </div>    
+        </div> 
+        
+    </div>
+
+    <!--END CART ITEMS-->
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

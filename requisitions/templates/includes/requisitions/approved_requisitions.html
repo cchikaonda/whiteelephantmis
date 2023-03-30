@@ -1,0 +1,89 @@
+{% for request in approved_requisitions %}
+<tr>
+    <td>{{ request.code }}</td>
+    <td>{{ request.user.first_name }} {{ request.user.last_name }}</td>
+    <td>{{ request.created_at }}</td>
+    <td class="text-center">
+        {% if request.status == "Approved" %}
+        <span class="nav-main-link-badge badge badge-pill badge-success" data-toggle="tooltip" title="Approved">Approved</span>
+        {% elif request.status == "Pending" %}
+        <span class="nav-main-link-badge badge badge-pill badge-info" data-toggle="tooltip" title="Pending">Pending</span>
+        {% elif request.status == "Denied" %}
+        <span class="nav-main-link-badge badge badge-pill badge-danger" data-toggle="tooltip" title="Denied">Denied</span>
+        {% endif %}
+    <td class="text-right">{{ request.request_total_cost }}</td>
+    <td class="text-center">
+        <div class="btn-group">
+          <a class="btn btn-info btn-light btn-sm" data-toggle="modal" data-target="#order_details{{request.id}}">
+            <i class="fas fa-fw fa-eye">
+            </i>
+        </a>
+        <!--View Bill Modal-->
+        <div class="modal fade" id="order_details{{request.id}}">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">{{request.get_code}} : {{request.user.first_name}} {{request.user.last_name}} </h4> 
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                
+                <form action="#" method="post" >
+                  {% csrf_token %}
+                    
+                  <div class="form-group">
+                    <div class="mb-4">
+                      <table class="table table-striped">
+                        {% if request.items.all %}
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Item</th>
+                            <th>Price</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-center">Qty in stock</th>
+                            <th class="text-right">Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for ordered_item in request.items.all %}
+                          <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{ordered_item.item}}</td>
+                            <td>{{ordered_item.requested_item_price}}</td>
+                            <td class="text-center">{{ordered_item.quantity}}</td>
+                            <td class="text-center">{{ordered_item.item.quantity_at_hand}}</td>
+                            <td class="text-right">{{ordered_item.amount}}</td>
+                          </tr>
+                          {% endfor %}
+                          
+                        <tr>
+                            <td colspan="5" class="font-w700 text-uppercase text-right bg-body-light">Total Due</td>
+                            <td class="font-w700 text-right bg-body-dark" >{{request.get_total_approved_request_amount}}</td>
+                        </tr>
+                          
+                        </tbody>
+                        {% else %}
+                        <div>No Items in Order!</div>
+                        {% endif %}
+                  
+                      </table>
+                    
+                    </div>
+                  </div>
+                  
+              
+              </div>
+            </div>
+          </form>
+            <!-- /.modal-content -->
+          </div>
+        </div>
+        <!--End View Bill Modal-->
+        </div>
+
+    </td>
+</tr>
+{% endfor %}

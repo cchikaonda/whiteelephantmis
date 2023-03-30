@@ -1,0 +1,121 @@
+{% extends 'base_inventory.html' %}
+
+{% block content %}    
+<!-- Main content -->
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card-body">
+            <div class="card">
+              <div class="card-header">
+                <div class="block-header row">
+                  <div class="col-12 mb-2">
+                   <a href="{% url 'create_requisition' %}"> <button class="btn btn-primary show-form"> <span class="fa fa-plus fa-1x"></span> Create New Requisition</button> </a>
+                  </div> 
+                  
+                  <div>
+
+                  </div>
+                  
+              </div>
+
+              </div>
+              <div class="card-tabs">
+                <div class="p-0 pt-1">
+                  <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="false">All Requisitions</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">Approved</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="custom-tabs-three-messages-tab" data-toggle="pill" href="#custom-tabs-three-messages" role="tab" aria-controls="custom-tabs-three-messages" aria-selected="false">Pending</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="custom-tabs-three-settings-tab" data-toggle="pill" href="#custom-tabs-three-settings" role="tab" aria-controls="custom-tabs-three-settings" aria-selected="false">Denied</a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content" id="custom-tabs-three-tabContent">
+                    <div class="tab-pane fade" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                      <table class="table table-bordered table-striped" id="all-requisitions-table">
+                        <thead >
+                          <tr>
+                              <th class="text-center" style="width: 5%;">ID</th>
+                              <th class="d-none d-sm-table-cell" style="width: 25%;">Requested by</th>
+                              <th class="d-none d-sm-table-cell" style="width: 25%;">Date</th>
+                              <th class="d-none d-sm-table-cell" style="width: 10%;">Status</th>
+                              <th style="width: 25%;">Total Amount</th>
+                              
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% include 'includes/requisitions/requisitions_list_2.html' %}
+                        </tbody>
+                      </table> 
+                    </div>
+                    <div class="tab-pane fade active show" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
+                      <table class="table table-bordered table-striped" id="approved-requisitions-table">
+                        <thead >
+                          <tr>
+                              <th class="text-center" style="width: 5%;">ID</th>
+                              <th class="d-none d-sm-table-cell" style="width: 25%;">Requested by</th>
+                              <th class="d-none d-sm-table-cell" style="width: 25%;">Date</th>
+                              <th class="d-none d-sm-table-cell" style="width: 10%;">Status</th>
+                              <th style="width: 25%;">Total Amount</th>
+                              
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% include 'includes/requisitions/approved_requisitions.html' %}
+                        </tbody>
+                      </table> 
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-three-messages" role="tabpanel" aria-labelledby="custom-tabs-three-messages-tab">
+                      <table class="table table-bordered table-striped" id="pending-requisitions-table">
+                        <thead >
+                          <tr>
+                              <th class="text-center" style="width: 5%;">ID</th>
+                              <th class="d-none d-sm-table-cell" style="width: 25%;">Requested by</th>
+                              <th class="d-none d-sm-table-cell" style="width: 25%;">Date</th>
+                              <th class="d-none d-sm-table-cell" style="width: 10%;">Status</th>
+                              <th style="width: 25%;">Total Amount</th>
+                              
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% include 'includes/requisitions/pending_requsitions.html' %}
+                        </tbody>
+                      </table> 
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-three-settings" role="tabpanel" aria-labelledby="custom-tabs-three-settings-tab">
+                      <table class="table table-bordered table-striped" id="denied-requisitions-table">
+                        <thead >
+                          <tr>
+                              <th class="text-center" style="width: 5%;">ID</th>
+                              <th class="d-none d-sm-table-cell" style="width: 25%;">Requested by</th>
+                              <th class="d-none d-sm-table-cell" style="width: 25%;">Date</th>
+                              <th class="d-none d-sm-table-cell" style="width: 10%;">Status</th>
+                              <th style="width: 25%;">Total Amount</th>
+                              
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% include 'includes/requisitions/denied_requsitions.html' %}
+                        </tbody>
+                      </table> 
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card -->
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -13,7 +13,7 @@ class AddItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = (
-            'item_name','barcode','price','discount_price', 'category', 'item_description', 'slug', 'active', 'unit','quantity_at_hand', 'reorder_level')
+            'item_name','barcode','price','discount_price', 'category', 'item_description', 'slug', 'active', 'unit','quantity_at_hand', 'reorder_level','image',)
         widgets = {
             'description': forms.TextInput(attrs={'class': 'js-max-length form-control','max-length': '70', 'id': 'example-max-length4','placeholder': '50 chars limit..', 'data-always-show': 'True',
                                                   'data-pre-text': 'Used', 'data-separator': 'of',

@@ -7,6 +7,64 @@
     display: inline;
   }
 </style>
+<style>
+  #customer_name_label{
+    display: inline;
+  }
+  
+  #item_button{
+    background-color: #17a2b8 !important;
+    padding: 0.15rem; 
+    border-radius: 0.25rem;
+  }
+  .bottom-area-btns{
+    min-width: 90px;
+    margin: 0 1px;
+    padding: 12px 0;
+    height: 80px;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 1032;
+    }
+    
+
+    .pagination a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+    }
+      .pagination li.active {
+      background-color: #4CAF50;
+      min-height: 50px;
+      min-width: 50px;
+      font-size: xx-large;
+      /* color: white; */
+    }
+    .pagination li{
+      min-height: 50px;
+      min-width: 50px;
+      font-size: xx-large;
+      /* color: white; */
+    }
+
+    .pagination a:hover:not(.active) {
+      background-color: #ddd;
+      min-height: 40px;
+      min-width: 40px;
+      font-size: xx-large;
+    }
+    .list-wrapper{
+      min-height: 50px;
+      position: relative;
+    }
+    #item-category-wrapper a div.active {
+      background-color: #4CAF50;
+    }
+
+</style>
 <div class="mb-4">
   <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-md-center justify-content-start border-bottom mb-2" style="font-size: x-large;">
     <a class="nav-item" href="#"><b>{{request.get_code}}</b></a>  
@@ -103,59 +161,22 @@
                         </tr>
                       
                       {% endfor %}
-                      {% if order.order_total %}
+                      {% if basket|length > 0 %}
                       <tr>
-                        <td colspan="4"></td>
-                        
+                        <td colspan="2"></td>
                         <td colspan="1" class="text-right" style="background-color:#343a40; font-size: 100%; font-family: monospace; color: chartreuse;" class="col-md-6"><h4>TOTAL</h4></td>
-                        <td colspan="1" class="text-right" style="background-color:#343a40; font-size: 100%; font-family: monospace; color: chartreuse;" class="col-md-6"> <h4>{{order.order_total_due}}</h4></td>
+                        <td colspan="1" class="text-right" style="background-color:#343a40; font-size: 100%; font-family: monospace; color: chartreuse;" class="col-md-6"> <h4>{{basket.get_subtotal_price}}</h4></td>
                         <td colspan="1" class="text-right" style="background-color:#343a40; font-size: 100%; font-family: monospace; color: chartreuse;" class="col-md-6"></td>
                       </tr>
-                      {% if order.total_paid_amount >= order.order_total_cost %}
-                        <tr style="outline: none; border: none;">
-                            <td colspan="3"  style="text-align: right; outline: none; background-color: rgba(171, 213, 238, 0.6);" class="text-info font-size-h4 font-w600" >AMOUNT TENDERED</td>
-                            <td colspan="2" style="background-color: rgba(171, 213, 238, 0.6); font-weight: bold;">{{order.total_paid_amount}}</td>
-                            <td colspan="1" class="text-info font-size-h4 font-w600 text-right" style="background-color: rgba(171, 227, 125, 0.6); font-weight: bold;">CHANGE</td>
-                            <td colspan="2" class="text-right" style="background-color: rgba(171, 227, 125, 0.6); font-weight: bold;">{{order.get_change}}</td>
-                        </tr>
-                      {% else %}
-                        <tr style="outline: none; border: none;">
-                          {% if order.total_paid_amount >= order.order_total or order.total_paid_amount == order.default_amount_paid  %}
-                          
-          
-                          {% else %}
-                          <td colspan="2"  style="text-align: right; outline: none;background-color: rgba(171, 213, 238, 0.6);" class="text-info font-size-h4 font-w600" >Amount Tendered is less than the Total Bill</td>
-                          
-                          <td colspan="2" style="background-color: rgba(171, 213, 238, 0.6); font-weight: bold;">{{order.total_paid_amount}}</td>
-                          <td></td>
-                          <td colspan="1" style="text-align: right; outline: none; background-color: rgba(214, 14, 7, 0.6); " class="font-size-h4 font-w600">BALANCE</td>
-                          <td colspan="2" class="text-right" style="background-color: rgba(214, 14, 7, 0.6); font-weight: bold;">{{order.get_balance}}</td>
-                          {% endif %}
-                        </tr>
                       {% endif %}
-
-                    {% endif %}
                       </tbody>
                     </table>
                 </div>
                 <div class="col-md-12" style="float: right;">
                     <div class="mt-2">
-                      <a href="#"><button class="btn btn-secondary mr-2 ml-2 mt-2 posoption_button" ><i class="fas fa-print"></i> Print Bill</button> </a>
-                      {% if total_paid_amount == order.default_amount_paid %}
-                      {% elif total_paid_amount >= order_total_due %}
-                        <a data-toggle="modal" data-target="#produceReceiptModal"><button class="btn btn-success mr-2 ml-2 mt-2 posoption_button"><i class="fas fa-arrow-right"></i> Checkout</button> </a> 
-                      {% endif %}
-                      {% if order.items and order.order_total_due > order.total_paid_amount%}
-                        <a data-toggle="modal" data-target="#produceReceiptSavedBillModal"><button class="btn btn-warning mr-2 ml-2 mt-2 posoption_button"><i class="fas fa-save"></i> Save Bill</button> </a>
-                      {% endif %}
+                      <a href="{% url 'submit_requisition' %}"><button class="btn btn-success posoption_button mr-2 ml-2 mt-2" > Submit</button> </a>
                     </div>
-                      {% if order.items and order.order_total_due > order.total_paid_amount%}
-                        <a data-toggle="modal" data-target="#airtelModal"><button class="btn btn-danger mr-2 ml-2 mt-2 posoption_button"><i class="fas fa-save"></i> Airtel Money</button> </a>
-                        <a data-toggle="modal" data-target="#bankModal"><button class="btn btn-primary mr-2 ml-2 mt-2 posoption_button"><i class="fas fa-save"></i> Bank</button> </a>
-                        <a data-toggle="modal" data-target="#mpambaModal"><button class="btn btn-success mr-2 ml-2 mt-2 posoption_button "><i class="fas fa-save"></i> Mpamba</button> </a>
-                        <a data-toggle="modal" data-target="#cashModal"><button class="btn btn-info mr-2 ml-2 mt-2 posoption_button "><i class="fas fa-money-bill-alt"></i> Cash</button> </a>
-                      {% endif %}
-                  </div>
+                </div>
                
 
             </div>    
@@ -169,36 +190,59 @@
       <!--ITEMS TABLE-->
       <div class="col-6">
         <div class="card card-info card-outline card-outline-tabs">
-          <div class="card-header p-0 border-bottom-0">
-            <ul class="nav nav-tabs mt-2" id="custom-tabs-four-tab" role="tablist">
-              <li class="nav-item ml-4" style="width: 50%;">
-                <a id="custom-tabs-four-settings-tab" class="nav-link info-box show active bg-secondary" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="true" style="height: 50px !important; width: 210px !important;">
-                ITEMS
+          <div class="row">
+            <div class="col-3 ml-2" id="item-category-wrapper">
+                <a  href="{% url 'create_requisition'%}">
+                  <div class="info-box active">
+                      <div>
+                          <span class="info-box-text"> <strong>All</strong></span>
+    
+                      </div>
+                  <!-- /.info-box-content -->
+                  </div>
+                </a> 
+              {% for item_category in item_categories %}
+                  <!-- /.info-box -->    
+                  <a  href="/create_requisition?category={{item_category.id}}">
+                      <div class="info-box text-center bg-secondary" >
+                          <div>
+                              <span class="info-box-text"> <strong>{{item_category.category_name}}</strong></span>
+                          </div>
+                      <!-- /.info-box-content -->
+                      </div>
+                  </a> 
+              {% endfor %}
+            </div>
+            <div class="col-8 row" id="list-wrapper">
+              {% for item in items %}
+                <div class="col-md-4 mb-2 px-1 list-item">
+                  <a href="{% url 'item_details' item.id %}">
+                  <div  id="item_button" class="item-box mt-0 text-center" data-toggle="modal" data-target="#productBox">
+                      <div class="txt-box">
+                          <span class="text-dark"> <strong>{{item.selling_price}}</strong> </span>
+                      </div>
+                      <div class="img-box">
+                          <img src = "{{item.image.url}}"class="img-fluid" alt="">
+                      </div>
+                      <div class="txt-box item-name">
+                          <span class="text-dark"><strong>{{item.item_name}}</strong></span>
+                      </div>
+                  </div>
                 </a>
-                <!-- <a class="nav-link text-info show active" id="custom-tabs-four-settings-tab" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="true" > <button class="btn btn-lg">ITEMS</button> </a> -->
-              </li>
-              <li class="nav-item ml-3">
-                <a class="nav-link  info-box bg-secondary" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="false"  style="height: 50px !important; width: 200px !important;">SEARCH ITEM</a>
-              </li>
-            </ul>
+                </div>
+              {% endfor %}
+              <nav aria-label="Page navigation">
+                <ul class="pagination">
+                  <li id="previous-page">
+                    <a href="javascript:void(0)" aria-label="Previous" >
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
-          <div class="card-body">
-            <div class="tab-content" id="custom-tabs-four-tabContent">
-              <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
-                    <!--ALL ITEMS-->
-                    {% include 'includes/all_items_table.html' %}
-                    <!--END ALL ITEMS-->
-              </div>
-              <div class="tab-pane fade show active" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="custom-tabs-four-settings-tab">
-                <!--CATEGORIES-->
-                {% include 'includes/item_categories_buttons.html' %}
-                <!--END CATEGORIES-->
-              </div>
-          </div>
-          <!-- /.card -->
         </div>
-      </div>
-
       </div>
       <!--END ITEMS TABLE-->
   <!--END ROW-->

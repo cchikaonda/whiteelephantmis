@@ -69,11 +69,6 @@ class Basket:
     def get_subtotal_price(self):
         return sum(item["price"] * item["qty"] for item in self.basket.values())
 
-    def get_delivery_price(self):
-        newprice =  Money(0.00, 'MWK')
-
-        if "purchase" in self.session:
-            return newprice
 
     def get_total_price(self):
         newprice = Money(0.00, 'MWK')

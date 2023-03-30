@@ -125,7 +125,7 @@
                   <li class="nav-item">
                     <a href="{% url 'requisitions_list' %}" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
-                      <p>Requisitions<span class="badge badge-warning right">5</span> </p>
+                      <p>Requisitions<span class="badge badge-warning right">{{request.user|requisition_count}}</span> </p>
                     </a>
                   </li>
                 </ul>
@@ -155,7 +155,7 @@
               </li>
               <li class="nav-header">SYSTEM SETTINGS</li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'user_list' %}" class="nav-link">
                   <i class="nav-icon fas fa-calendar-alt"></i>
                   <p>
                     Manage Users
