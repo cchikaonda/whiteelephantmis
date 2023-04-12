@@ -1,0 +1,31 @@
+{% extends 'base_inventory.html' %}
+
+{% block content %}    
+<!-- Main content -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      {% include "includes/categories/category_list.html" %}
+    </div>
+  </div>
+  <div class="card col-12">
+    <div class="card-body">
+      <table class="table table-bordered table-striped" id="fastsellingproduct-table">
+        <thead >
+          <tr>
+              <th>ID</th>
+              <th >Item</th>
+              <th >Category</th>
+              <th>Unit Cost</th>
+              <th>Quantity</th>
+              <th class="text-right">Total Sales</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% include "includes/fast_selling_report_2.html" %}
+        </tbody>
+      </table>  
+    </div>   
+  </div>
+</div>
+{% endblock %}

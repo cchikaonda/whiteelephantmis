@@ -148,6 +148,27 @@
 
 </script>
 
+<!-- script to increament and decreament values in input fields -->
+<script>
+    function increament(element) {
+      let qtyBox = element.previousElementSibling;
+      qtyBox.value = parseInt(qtyBox.value) + 1;
+    }
+</script>
+<script>
+    function decrement(textFieldId, decrementAmount) {
+      var textField = document.getElementById(textFieldId);
+      var currentValue = parseInt(textField.value);
+      var newValue = currentValue - decrementAmount;
+      if (newValue <0){
+        newValue = 0;
+      }
+      textField.value = newValue;
+    }
+</script>
+
+<!-- End scripts to increament and decreament values in input fields -->
+
 <script>
     var input = document.querySelector("#phone_number");
     window.intlTelInput(input, {
@@ -170,6 +191,31 @@
     })
 </script>
 <!--End Activating Navigation Links-->
+
+<script>
+  {% for msg in messages %}
+    {% if msg.tags == 'info' %}
+        Swal.fire(
+        '{{msg}}',
+        '',
+        'info'
+      );
+    {% elif msg.tags == 'error' %}
+        Swal.fire(
+            '{{msg}}',
+            '',
+            'error'
+          );
+    {% elif msg.tags == 'success' %}
+        Swal.fire(
+            '{{msg}}',
+            '',
+            'success'
+          );
+    {% endif %}
+
+  {% endfor %}
+</script>
 
 
 <script>
@@ -346,17 +392,17 @@
   var salesChart  = new Chart($salesChart, {
     type   : 'bar',
     data   : {
-      labels  : ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+      labels  : [{% for category in total_req_items_per_cat_tw %}'{{category.category}}', {% endfor %}],
       datasets: [
         {
           backgroundColor: '#28a745',
           borderColor    : '#28a745',
-          data           :  [{{monday_total_sales.amount}}, {{tuesday_total_sales.amount}}, {{wednesday_total_sales.amount}}, {{thursday_total_sales.amount}}, {{friday_total_sales.amount}}, {{saturday_total_sales.amount}}, {{sunday_total_sales.amount}}]
+          data           :  [{% for category in total_req_items_per_cat_tw %}'{{category.total}}', {% endfor %}]
         },
         {
           backgroundColor: '#6c757d',
           borderColor    : '#6c757d',
-          data           : [{{lw_monday_total_sales.amount}}, {{lw_tuesday_total_sales.amount}}, {{lw_wednesday_total_sales.amount}}, {{lw_thursday_total_sales.amount}}, {{lw_friday_total_sales.amount}}, {{lw_saturday_total_sales.amount}}, {{lw_sunday_total_sales.amount}}]
+          data           : [{% for category in total_req_items_per_cat_lw %}'{{category.total}}', {% endfor %}],
         }
       ]
     },
@@ -391,7 +437,7 @@
               //   value /= 1000
               //   value += 'k'
               // }
-              return 'MWK ' + value
+              return value
             }
           }, ticksStyle)
         }],

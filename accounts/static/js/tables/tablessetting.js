@@ -156,6 +156,13 @@
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#category-table_wrapper .col-md-6:eq(0)');
 
+        $('#fastsellingproduct-table').DataTable({
+            "responsive": true, 
+            "lengthChange": false, 
+            "autoWidth": false,
+            "buttons": ["excel", "pdf", "print"],
+            // "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+        }).buttons().container().appendTo('#fastsellingproduct-table_wrapper .col-md-6:eq(0)');
 
         $('#customer-table-pos').DataTable({
             "responsive": true, 
@@ -211,8 +218,6 @@
             "autoWidth": false,
             "responsive": true,
         });
-
-       
 
         $('#product-table').DataTable({
             "paging": true,

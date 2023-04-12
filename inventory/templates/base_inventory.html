@@ -130,6 +130,7 @@
                   </li>
                 </ul>
               </li>
+<!-- 
               <li class="nav-item has-treeview menu-open">
                 <a href="#" class="nav-link" id="link-options" >
                   <i class="nav-icon fas fa-th"></i>
@@ -149,6 +150,24 @@
                     <a href="#" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Expenses List<span class="badge badge-success right">5</span> </p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+               -->
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link" id="link-options" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                   REPORTS
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{% url 'fast_selling_product' %}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Fast Selling Items <span class="badge badge-success right"></span> </p>
                     </a>
                   </li>
                 </ul>
@@ -220,16 +239,6 @@
 <!--All Javascript Imports-->
 {% include 'all_js_imports.html' %}
 <!--End all Javascript imports-->
-
-<script>
-  {% for msg in messages %}
-      Swal.fire(
-      '{{msg}}',
-      '',
-      'success'
-    );
-  {% endfor %}
-</script>
 
 <!--Inventory Modals Module-->
 {% include 'includes/inventory_modals.html' %}

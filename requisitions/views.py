@@ -170,7 +170,7 @@ def submit_requisition(request):
             )
             req.items.add(requested_item)
             req.save()
-        messages.success(request, "Request Successfully placed!")
+        messages.success(request, "Request Successfully submitted!")
         del request.session['basket']
         return redirect('requisitions_list')
 
@@ -189,4 +189,28 @@ def approve_requisition(request, id):
     requisition.save()
     messages.success(request, "Request Successfully Approved!")
     return redirect('requisitions_list')
+
+def deny_requisition(request, id):
+    requisition = Requisition.objects.get(id = id)
+    req_id = requisition.get_code()
+    # requested_items = RequestItem.objects.filter(request_id = req_id)
+    # for requested_item in requested_items:
+    #     item = Item.objects.get(item_name = requested_item.item)
+    #     item.quantity_at_hand = requested_item.get_item_balance()
+    #     item.save()
+    #     requested_item.approved = True
+    #     requested_item.save()
+    requisition.status = "Denied"
+    requisition.approved_by = request.user
+    requisition.save()
+    messages.success(request, "Request Denied!")
+    return redirect('requisitions_list')
+
+
+def basket_clear(request):
+    basket = Basket(request)
+    print(basket)
+    basket.clear()
+    print(basket)
+    return redirect ('create_requisition')
 

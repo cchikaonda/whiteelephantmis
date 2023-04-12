@@ -17,13 +17,45 @@ from datetime import date, timedelta, datetime
 from django.db.models.functions import Lower
 from djmoney.models.fields import MoneyField
 from inventory.forms import AddCategoryForm, AddItemForm, AddUnitForm, AddSupplierForm, AddBatchForm, AddStockForm
+from inventory.models import *
+from requisitions.models import *
+from inventory.homeChartsData import get_requests_last_week, get_requests_this_week
 
 # Inventory dashboard page.
+def get_total_items_percategory(category, requested_items):
+    requested_items = requested_items.filter(item__category = category)
+    total_items = 0
+    if requested_items != None:
+        for requested_item in requested_items:
+            total_items += requested_item.quantity
+        print(total_items)
+    return total_items
+
 @login_required
 def home(request):
+    item_categories = ItemCategory.objects.all()
+    total_req_items_per_cat_lw = []
+    total_req_items_per_cat_tw = []
+
+    requests_tw = get_requests_this_week()
+    requests_lw = get_requests_last_week()
+
+    for item_cat in item_categories:
+        dicttw = {}
+        dicttw['category'] = item_cat.category_name
+        dicttw['total'] = get_total_items_percategory(item_cat, requests_tw)
+        total_req_items_per_cat_tw.append(dicttw)
+
+        dictlw = {}
+        dictlw['category'] = item_cat.category_name
+        dictlw['total'] = get_total_items_percategory(item_cat, requests_lw)
+        total_req_items_per_cat_lw.append(dictlw)
+    # total_req_items_per_cat = sorted(total_req_items_per_cat, key=lambda x:x['total'], reverse=True)
     items_run_out_of_stock = get_items_running_out_of_stock()
     context = {
         'items_run_out_of_stock':items_run_out_of_stock,
+        'total_req_items_per_cat_lw':total_req_items_per_cat_lw,
+        'total_req_items_per_cat_tw':total_req_items_per_cat_tw,
 
     }
     return render(request, 'home.html', context)

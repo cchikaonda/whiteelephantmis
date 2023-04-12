@@ -10,10 +10,10 @@ from inventory.models import *
 from django.dispatch import receiver
 from datetime import date, timedelta, datetime, time
 from djmoney.money import Money
-
+from common_utils.BaseModels import BaseModel
 # Create your models here.
 
-class RequestItem(models.Model):
+class RequestItem(BaseModel):
     request_id = models.CharField(default="", max_length=30)
     user = models.ForeignKey(User, on_delete = models.SET_NULL, null = True)
     item = models.ForeignKey(Item, on_delete = models.CASCADE)
@@ -47,7 +47,7 @@ request_status = (
         ('Not Approved', 'Not Approved'),
     )
     
-class Requisition(models.Model):
+class Requisition(BaseModel):
     def gen_code(self):
             return 'RQT%04d'%self.pk
     code = models.CharField(max_length=50, null=True, default="0000")
@@ -74,3 +74,5 @@ class Requisition(models.Model):
     
     def __str__(self):
         return '{1} {0}'.format(self.created_at, self.user)
+
+            

@@ -1,0 +1,13 @@
+{% for item in fastselling %}
+<tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ item.item }}</td>
+    <td>{{ item.category }}</td>
+    <td>{{ item.price }}</td>
+    <td class="text-center">{{ item.total }}</td>
+    <td class="text-right">{{item.amount}}</td>
+</tr>
+{% endfor %}
+
+
+

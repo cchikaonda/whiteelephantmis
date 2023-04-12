@@ -93,7 +93,7 @@
                               {% else %}
                               {% endif %}
                             </div>
-                            <input type="text" class="form-control text-center" value="{{ordered_item.approved_qty}}" id="{{ordered_item.id}}">
+                            <input type="number" class="form-control text-center" value="{{ordered_item.approved_qty}}" id="{{ordered_item.id}}" readonly>
                             <div class="input-group-append">
                               {% if ordered_item.item.quantity_at_hand > 0 %}
                               <span class="input-group-text"><a href="{%url 'add_single_item_from_cart' ordered_item.item.slug %}"><i class="fas fa-plus"></i></a></span>
@@ -121,7 +121,7 @@
                     <div class="mt-2">
                       <a href="{% url 'requisitions_list' %}"><button class="btn btn-secondary mr-2 mt-2 posoption_button" >Close</button> </a>
                       <a href="{% url 'approve_requisition' requisition.id %}"><button class="btn btn-success mr-2 ml-2 mt-2 posoption_button" >Approve</button> </a>
-                      <a href="{% url 'approve_requisition' requisition.id %}"><button class="btn btn-warning  ml-2 mt-2 posoption_button" >Deny</button> </a>
+                      <a href="{% url 'deny_requisition' requisition.id %}"><button class="btn btn-warning  ml-2 mt-2 posoption_button" >Deny</button> </a>
                     </div>
                 </div>
                

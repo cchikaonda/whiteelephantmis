@@ -14,12 +14,12 @@
     <td class="text-right">{{ request.request_total_cost }}</td>
     <td class="text-center">
         <div class="btn-group">
-          <a class="btn btn-info btn-light btn-sm" data-toggle="modal" data-target="#order_details{{request.id}}">
+          <a class="btn btn-info btn-light btn-sm" data-toggle="modal" data-target="#approved_request_items{{request.id}}">
             <i class="fas fa-fw fa-eye">
             </i>
         </a>
-        <!--View Bill Modal-->
-        <div class="modal fade" id="order_details{{request.id}}">
+        <!--View request approved items Modal-->
+        <div class="modal fade" id="approved_request_items{{request.id}}">
           <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
               <div class="modal-header">
@@ -42,9 +42,9 @@
                             <th>#</th>
                             <th>Item</th>
                             <th>Price</th>
-                            <th class="text-center">Qty</th>
-                            <th class="text-center">Qty in stock</th>
-                            <th class="text-right">Total</th>
+                            <th class="text-center">Requested Qty</th>
+                            <th class="text-center">Approved Qty</th>
+                            <th class="text-right">Total Approved Cost</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -54,8 +54,8 @@
                             <td>{{ordered_item.item}}</td>
                             <td>{{ordered_item.requested_item_price}}</td>
                             <td class="text-center">{{ordered_item.quantity}}</td>
-                            <td class="text-center">{{ordered_item.item.quantity_at_hand}}</td>
-                            <td class="text-right">{{ordered_item.amount}}</td>
+                            <td class="text-center">{{ordered_item.approved_qty}}</td>
+                            <td class="text-right">{{ordered_item.total_approved_item_amount}}</td>
                           </tr>
                           {% endfor %}
                           

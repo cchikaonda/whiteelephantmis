@@ -12,9 +12,12 @@ urlpatterns = [
     path('item_details/<int:id>/', item_details, name = 'item_details'),
     path('submit_requisition/', submit_requisition, name = 'submit_requisition'),
     path('approve_requisition/<int:id>/', approve_requisition, name = 'approve_requisition'),
+    path('deny_requisition/<int:id>/', deny_requisition, name = 'deny_requisition'),
 
     path('remove_single_item_from_cart/<slug>/', remove_single_item_from_cart, name = 'remove_single_item_from_cart'),
     path('add_single_item_from_cart/<slug>/', add_single_item_from_cart, name = 'add_single_item_from_cart'),
+
+    path('basket_clear/', basket_clear, name='basket_clear'),
     
     
 ]

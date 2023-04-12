@@ -43,11 +43,15 @@ INSTALLED_APPS = [
     'accounts',
     'inventory',
     'requisitions',
+    'sales',
     'basket',
+    'reports',
 
     'django_countries',
     'phonenumber_field',
     'crispy_forms',
+    'formtools',
+
     
 ]
 
